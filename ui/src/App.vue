@@ -23,17 +23,6 @@
             v-show="componentConfig.display_traffic"
             v-model:wsMessage="wsMessage"
           ></TrafficDisplay>
-          <div>
-            Powered by
-            <n-button
-              text
-              tag="a"
-              target="_blank"
-              href="https://github.com/wikihost-opensource/als"
-            >
-              WIKIHOST Opensource - ALS (Github)
-            </n-button>
-          </div>
         </n-space>
       </div>
     </n-message-provider>
