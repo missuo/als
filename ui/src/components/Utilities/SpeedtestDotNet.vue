@@ -5,7 +5,7 @@
         :disabled="working"
         v-model:value="serverId"
         :style="{ width: '90%' }"
-        placeholder="speedtest.net 服务器 ID (可空)"
+        placeholder="speedtest.net Server ID (optional)"
         @keyup.enter="speedtest"
       />
       <n-button :loading="working" type="primary" ghost @click="speedtest()">
@@ -19,14 +19,13 @@
           <br />
         </n-alert>
         <template #description>
-          测速请求正在排队中, 目前您在第 {{ QueueStat.pos }} 位 (共
-          {{ QueueStat.total }} 位)
+          The speed test request is in queue, currently you are at position {{ QueueStat.pos }} (out of a total of {{ QueueStat.total }} positions).
         </template>
       </n-spin>
     </n-collapse-transition>
 
     <n-collapse-transition :show="isSpeedtest && action == '' && !isCrash">
-      <n-alert :show-icon="false" :bordered="false"> 测试很快开始... </n-alert>
+      <n-alert :show-icon="false" :bordered="false"> Testing begins soon... </n-alert>
     </n-collapse-transition>
     <n-collapse-transition :show="speedtestData.result != ''">
       <n-alert :show-icon="false" :bordered="false">
@@ -41,7 +40,7 @@
     <n-collapse-transition :show="isSpeedtest && action != ''">
       <n-collapse-transition :show="working">
         <p>
-          {{ action }} - 进度
+          {{ action }} - Progress
           <span style="float: right">{{ progress.sub }}%</span>
         </p>
         <n-progress
@@ -51,7 +50,7 @@
           :processing="working"
         />
         <p>
-          总进度 <span style="float: right">{{ progress.full }}%</span>
+          Overall Progress <span style="float: right">{{ progress.full }}%</span>
         </p>
         <n-progress
           type="line"
@@ -67,15 +66,15 @@
         <n-table :bordered="true" :single-line="false">
           <tbody>
             <tr>
-              <td>服务器 ID</td>
+              <td>Server ID</td>
               <td>{{ speedtestData.serverInfo.id }}</td>
             </tr>
             <tr>
-              <td>服务器位置</td>
+              <td>Server Location</td>
               <td>{{ speedtestData.serverInfo.pos }}</td>
             </tr>
             <tr>
-              <td>服务器名称</td>
+              <td>Server Name</td>
               <td>{{ speedtestData.serverInfo.name }}</td>
             </tr>
           </tbody>
@@ -87,18 +86,18 @@
         <n-table :bordered="true" :single-line="false">
           <tbody>
             <tr>
-              <td>延迟</td>
-              <td v-if="speedtestData.ping == '0'">等待开始</td>
+              <td>Delay</td>
+              <td v-if="speedtestData.ping == '0'">Waiting to start</td>
               <td v-else>{{ speedtestData.ping }} ms</td>
             </tr>
             <tr>
-              <td>下载速度</td>
-              <td v-if="speedtestData.download == ''">等待开始</td>
+              <td>Download Speed</td>
+              <td v-if="speedtestData.download == ''">Waiting to start</td>
               <td v-else>{{ speedtestData.download }}</td>
             </tr>
             <tr>
-              <td>上传速度</td>
-              <td v-if="speedtestData.upload == ''">等待开始</td>
+              <td>Upload Speed</td>
+              <td v-if="speedtestData.upload == ''">Waiting to start</td>
               <td v-else>{{ speedtestData.upload }}</td>
             </tr>
           </tbody>
